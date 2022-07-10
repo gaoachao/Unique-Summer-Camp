@@ -10,5 +10,5 @@
 | :----------------------------------------------------------: | :-------: | :-------------------: |
 |                             起步                             | 2022.7.10 | 科学上网、chrome、Git |
 | [数据结构](https://github.com/gaoachao/Unique-Summer-Camp/tree/1-Data-Structure) |           |                       |
-|                          音乐播放器                          |           |                       |
+|                          [音乐播放器](https://github.com/gaoachao/Unique-Summer-Camp/tree/2-Music-Player)                          |           |                       |
 
