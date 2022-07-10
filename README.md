@@ -1,6 +1,8 @@
 #  Unique Summer Camp
 
-> A repo to record all tasks finished by bitter-gourd during Unique Studio Web summer camp 
+> A repo to record all tasks finished by bitter-gourd during Unique Studio Web summer camp .
+>
+> Each task is placed in a different branch by me for easy viewing !
 
 ## 任务进度
 
