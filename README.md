@@ -79,11 +79,9 @@ currentTrack.currentTime = Math.ceil(lyric[i][0]*100)/100;
 
 ### 点击歌词修改currentTime中的异步任务
 
-```
-Uncaught TypeError: Cannot read properties of null (reading 'classList')
-
-Uncaught TypeError: Cannot read properties of undefined (reading 'length')
-```
+> Uncaught TypeError: Cannot read properties of null (reading 'classList')
+>
+> Uncaught TypeError: Cannot read properties of undefined (reading 'length')
 
 因为获取事件的时候发出了一次AJAX请求，这次请求是异步的，会在同步任务执行完毕后再去执行，于是在给歌词的DOM元素添加监听器的时候读取`lyric.length`会出现错误。
 
