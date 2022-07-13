@@ -7,7 +7,9 @@ let player = document.querySelector(".player");
 let myBody = document.body;
 let wrapper = document.querySelector(".wrapper");
 let lyricWrapper = document.querySelector(".lyric-wrapper");
+let wrapperAll = document.querySelector(".wrapper-all");
 
+let buttons = document.querySelector(".buttons");
 let playPauseBtn = document.querySelector(".playpause-track");
 let nextBtn = document.querySelector(".next-track");
 let prevBtn = document.querySelector(".prev-track");
@@ -337,6 +339,26 @@ function updateAudio() {
   }, 100);
 }
 
+//移动端适配
+let mobileListener = function(){
+	if(window.screen.width < 821){
+		wrapperAll.style.display = 'block';
+		wrapper.style.width = '82vw';
+		lyricWrapper.style.display = 'none';
+		buttons.style.width = '82vw';
+		buttons.style.justifyContent = 'space-around';
+	} else {
+		wrapperAll.style.display = 'flex';
+		wrapper.style.width = '30vw';
+		lyricWrapper.style.display = 'flex';
+		buttons.style.width = '30vw';
+		buttons.style.justifyContent = 'center';
+	}
+}
+
+window.addEventListener('resize',mobileListener);
+
+
 //监听器
 playPauseBtn.addEventListener("click", playpauseTrack);
 nextBtn.addEventListener("click", nextTrack);
@@ -345,13 +367,14 @@ randomBtn.addEventListener("click", randomTrack);
 downloadBtn.addEventListener("click", downloadTrack);
 nightBtn.addEventListener("click", nightModel);
 
-seekSlider.addEventListener("change", seekTo);
+seekSlider.addEventListener("input", seekTo);
 volumeSlider.addEventListener("change", setVolume);
 
 currentTrack.addEventListener("timeupdate", updateLyric);
 
 currentTrack.addEventListener("loadeddata", durationTime);
 currentTrack.addEventListener("loadeddata", updateAudio);
+
 
 setTimeout(function () {
   for (let i = 0; i < lyric.length; i++) {
@@ -370,3 +393,7 @@ setTimeout(function () {
     });
   }
 }, 100);
+
+
+
+
