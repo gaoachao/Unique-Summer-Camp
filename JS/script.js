@@ -3,7 +3,10 @@ let nowPlaying = document.querySelector(".now-playing");
 let trackArt = document.querySelector(".track-art");
 let trackName = document.querySelector(".track-name");
 let trackArtist = document.querySelector(".track-artist");
-let player = document.querySelector('.player');
+let player = document.querySelector(".player");
+let myBody = document.body;
+let wrapper = document.querySelector(".wrapper");
+let lyricWrapper = document.querySelector(".lyric-wrapper");
 
 let playPauseBtn = document.querySelector(".playpause-track");
 let nextBtn = document.querySelector(".next-track");
@@ -19,16 +22,14 @@ let totalDuration = document.querySelector(".total-duration");
 let currentTrack = document.createElement("audio");
 
 //歌词相关
-let lyricContainer = document.querySelector(".lyric-container")
+let lyricContainer = document.querySelector(".lyric-container");
 let lyric;
-
 
 let trackIndex = 0;
 let isPlaying = false;
 let isRandom = false;
 let isNight = false;
 let updateTimer;
-
 
 //歌曲列表
 const musicList = [
@@ -62,11 +63,11 @@ function reset() {
 }
 
 function loadTrack(trackIndex) {
-	//关掉定时器
+  //关掉定时器
   clearInterval(updateTimer);
   reset();
   currentTrack.src = musicList[trackIndex].music;
-	getLyric(musicList[trackIndex].lyric);
+  getLyric(musicList[trackIndex].lyric);
   currentTrack.preload = "metadata";
   currentTrack.play();
 
@@ -76,7 +77,7 @@ function loadTrack(trackIndex) {
   nowPlaying.textContent =
     "Playing music     " + (trackIndex + 1) + "     of     " + musicList.length;
 
-  updateTimer = setInterval(setUpdate, 1000);
+  updateTimer = setInterval(setUpdate, 100);
   //audio结束播放后自动播放下一首
   currentTrack.addEventListener("ended", nextTrack);
 }
@@ -88,7 +89,7 @@ function loadTrack(trackIndex) {
  */
 function trackInit() {
   currentTrack.src = musicList[trackIndex].music;
-	getLyric(musicList[trackIndex].lyric);
+  getLyric(musicList[trackIndex].lyric);
   trackArt.style.backgroundImage = "url(" + musicList[trackIndex].img + ")";
   trackName.textContent = musicList[trackIndex].name;
   trackArtist.textContent = musicList[trackIndex].artist;
@@ -97,10 +98,10 @@ function trackInit() {
   updateTimer = setInterval(setUpdate, 1000);
   currentTrack.addEventListener("ended", nextTrack);
 }
-window.onload = trackInit();
+window.addEventListener("load", trackInit);
 
 //针对currentTrack.duration返回NAN的解决思路
-currentTrack.onloadeddata = function () {
+function durationTime() {
   let durationMinutes = Math.floor(currentTrack.duration / 60);
   let durationSections = Math.floor(
     currentTrack.duration - durationMinutes * 60
@@ -112,7 +113,7 @@ currentTrack.onloadeddata = function () {
     durationMinutes = "0" + durationMinutes;
   }
   totalDuration.textContent = durationMinutes + ":" + durationSections;
-};
+}
 
 //进度条和歌曲已播放时间
 function setUpdate() {
@@ -149,24 +150,35 @@ function pauseRandom() {
   randomBtn.classList.remove("randomActive");
 }
 //夜间模式
-function nightModel(){
-	isNight? whiteModel() : blackModel();
+function nightModel() {
+  isNight ? whiteModel() : blackModel();
 }
-function blackModel(){
-	isNight = true;
-	nightBtn.innerHTML = '<i class="fas fa-sun"></i>';
+function blackModel() {
+  isNight = true;
+  nightBtn.innerHTML = '<i class="fas fa-sun"></i>';
+  myBody.style.backgroundColor = "black";
+  myBody.style.color = "white";
+  // player.style.backgroundColor = 'rgb(85, 85, 88)';
+  lyricWrapper.style.backgroundColor = "rgb(89, 89, 91)";
+  wrapper.style.backgroundColor = "rgb(89, 89, 91)";
+  lyricContainer.style.color = "rgba(244, 239, 239, 0.436)";
 }
-function whiteModel(){
-	isNight = false;
-	nightBtn.innerHTML = '<i class="fas fa-moon"></i>';
+function whiteModel() {
+  isNight = false;
+  nightBtn.innerHTML = '<i class="fas fa-moon"></i>';
+  myBody.style.backgroundColor = "white";
+  myBody.style.color = "black";
+  lyricWrapper.style.backgroundColor = "white";
+  wrapper.style.backgroundColor = "white";
+  lyricContainer.style.color = "rgba(97, 97, 97, 0.436)";
 }
 
 //下载歌曲
-function downloadTrack(){
-	let a = document.createElement("a");           
-	a.setAttribute("href", currentTrack.src); 
-	a.setAttribute("target","_blank");
-	a.click();    
+function downloadTrack() {
+  let a = document.createElement("a");
+  a.setAttribute("href", currentTrack.src);
+  a.setAttribute("target", "_blank");
+  a.click();
 }
 
 //暂停播放功能
@@ -221,10 +233,10 @@ function prevTrack() {
 function seekTo() {
   let seekto = currentTrack.duration * (seekSlider.value / 100);
   currentTrack.currentTime = seekto;
-	for(let i = 0;i < lyric.length; i++){
-		let line = document.getElementById('line-' + i);
-		line.classList.remove('current-line');
-	}
+  for (let i = 0; i < lyric.length; i++) {
+    let line = document.getElementById("line-" + i);
+    line.classList.remove("current-line");
+  }
 }
 
 //设置歌曲音量
@@ -237,52 +249,53 @@ function getLyric(url) {
   let xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
   xhr.responseType = "text";
-  xhr.onload = function() {
-		//lyric是个全局变量
-  	lyric = parseLyric(xhr.response);
-  	appendLyric(lyric);
+  xhr.onload = function () {
+    //lyric是个全局变量
+    lyric = parseLyric(xhr.response);
+    appendLyric(lyric);
   };
-	xhr.send();
+  xhr.send();
 
-  // request.onerror = request.onabort = function(e) {
-  // 	lyricContainer.textContent = '!failed to load the lyric :(';
-  // }
-  lyricContainer.textContent = 'loading lyric...';
+  //加载过慢的交互效果
+  lyricContainer.textContent = "loading lyric...";
 }
 
 //处理lrc文件，时间轴、歌词内容等
 function parseLyric(text) {
   let lines = text.split("\n"),
     pattern = /\[\d{2}:\d{2}.\d{3}\]/g,
-		noBlankArr =[],
-		lyricResult = [];
+    noBlankArr = [],
+    lyricResult = [];
 
-	// console.log(lines);
-	//去掉歌词为空的元素！
-	lines.forEach(function(line){
-		if(line.replace(pattern,'')){
-			noBlankArr.push(line);
-		}
-	});
-	//获得每个元素为 时长+歌词数组 的数组result
-	noBlankArr.forEach(function(line,index){
-		let value = line.replace(pattern,'');
-		let time = line.match(pattern);
-		let lyircTime = time[0].slice(1, -1).split(":");
+  // console.log(lines);
+  //去掉歌词为空的元素！
+  lines.forEach(function (line) {
+    if (line.replace(pattern, "")) {
+      noBlankArr.push(line);
+    }
+  });
+  //获得每个元素为 时长+歌词数组 的数组result
+  noBlankArr.forEach(function (line, index) {
+    let value = line.replace(pattern, "");
+    let time = line.match(pattern);
+    let lyircTime = time[0].slice(1, -1).split(":");
 
-		lyricResult.push([parseInt(lyircTime[0], 10) * 60 + parseFloat(lyircTime[1]), value])
-	});
-	// console.log(lyricResult);
-	return lyricResult;
+    lyricResult.push([
+      parseInt(lyircTime[0], 10) * 60 + parseFloat(lyircTime[1]),
+      value,
+    ]);
+  });
+  // console.log(lyricResult);
+  return lyricResult;
 }
 
 //将歌词放入HTML文件
 function appendLyric(lyric) {
-	let fragment = document.createDocumentFragment();
+  let fragment = document.createDocumentFragment();
   lyricContainer.innerHTML = "";
   lyric.forEach(function (lyricArr, index) {
     var line = document.createElement("div");
-    line.id = 'line-' + index;
+    line.id = "line-" + index;
     line.textContent = lyricArr[1];
     fragment.appendChild(line);
   });
@@ -290,18 +303,38 @@ function appendLyric(lyric) {
 }
 
 //实现滚动条与audio currentTime的同步以及添加当前歌词的样式
-function updateLyric(){ 
-	for (let i = 0;i < lyric.length; i++) {
-			if (this.currentTime > lyric[i][0] && this.currentTime < lyric[i+1][0]  ) {
-					let line = document.getElementById('line-' + i),
-							prevLine = document.getElementById('line-' + (i > 0 ? i - 1 : i));
-							// scrollunit =  lyricContainer.scrollHeight / lyric.length;
-					
-					// lyricContainer.scrollTop = scrollunit * i - 170;
-					prevLine.className = '';
-					line.className = 'current-line';
-			};
-	};
+function updateLyric() {
+  for (let i = 0; i < lyric.length; i++) {
+    if (this.currentTime >= lyric[i][0] && this.currentTime < lyric[i + 1][0]) {
+      let line = document.getElementById("line-" + i),
+        prevLine = document.getElementById("line-" + (i > 0 ? i - 1 : i));
+      // scrollunit =  lyricContainer.scrollHeight / lyric.length;
+      // lyricContainer.scrollTop = scrollunit * i - 170;
+      prevLine.classList.remove("current-line");
+      line.classList.add("current-line");
+    }
+  }
+}
+
+//实现点击歌词audio跳转到相应位置
+function updateAudio() {
+  setTimeout(function () {
+    for (let i = 0; i < lyric.length; i++) {
+      let line = document.getElementById("line-" + i);
+      line.addEventListener("click", function () {
+        currentTrack.currentTime = Math.ceil(lyric[i][0] * 100) / 100;
+        line.classList.add("current-line");
+        for (let j = i + 1; j < lyric.length; j++) {
+          let otherLine = document.getElementById("line-" + j);
+          otherLine.classList.remove("current-line");
+        }
+        for (let k = 0; k < i; k++) {
+          let otherLine = document.getElementById("line-" + k);
+          otherLine.classList.remove("current-line");
+        }
+      });
+    }
+  }, 100);
 }
 
 //监听器
@@ -310,14 +343,30 @@ nextBtn.addEventListener("click", nextTrack);
 prevBtn.addEventListener("click", prevTrack);
 randomBtn.addEventListener("click", randomTrack);
 downloadBtn.addEventListener("click", downloadTrack);
-nightBtn.addEventListener('click',nightModel);
+nightBtn.addEventListener("click", nightModel);
 
 seekSlider.addEventListener("change", seekTo);
 volumeSlider.addEventListener("change", setVolume);
 
-currentTrack.addEventListener("timeupdate",updateLyric);
+currentTrack.addEventListener("timeupdate", updateLyric);
 
-console.log(currentTrack);
-console.log(currentTrack.src);
+currentTrack.addEventListener("loadeddata", durationTime);
+currentTrack.addEventListener("loadeddata", updateAudio);
 
-
+setTimeout(function () {
+  for (let i = 0; i < lyric.length; i++) {
+    let line = document.getElementById("line-" + i);
+    line.addEventListener("click", function () {
+      currentTrack.currentTime = Math.ceil(lyric[i][0] * 100) / 100;
+      line.classList.add("current-line");
+      for (let j = i + 1; j < lyric.length; j++) {
+        let otherLine = document.getElementById("line-" + j);
+        otherLine.classList.remove("current-line");
+      }
+      for (let k = 0; k < i; k++) {
+        let otherLine = document.getElementById("line-" + k);
+        otherLine.classList.remove("current-line");
+      }
+    });
+  }
+}, 100);
