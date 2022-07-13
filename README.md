@@ -16,6 +16,6 @@
 
 #### Music Player
 
-![daytime-model](https://github.com/gaoachao/Unique Summer Camp/raw/main/images/daytime-model.jpg)
+![daytime-model](https://github.com/gaoachao/Unique-Summer-Camp/raw/main/images/daytime-model.jpg)
 
-![night-model](https://github.com/gaoachao/Unique Summer Camp/raw/main/images/night-model.jpg)
+![night-model](https://github.com/gaoachao/Unique-Summer-Camp/raw/main/images/night-model.jpg)
