@@ -16,9 +16,9 @@
 
 #### Music Player
 
-**在线访问：**https://www.bitter-gourd.com/MusicPlayer
+**在线访问**：https://www.bitter-gourd.com/MusicPlayer
 
-**源码：**点击上方“音乐播放器”字样，或者手动切换分支至`2-Music-Player`
+**源码**：点击上方“音乐播放器”字样，或者手动切换分支至`2-Music-Player`
 
 ![daytime-model](https://github.com/gaoachao/Unique-Summer-Camp/raw/main/images/daytime-model.jpg)
 
