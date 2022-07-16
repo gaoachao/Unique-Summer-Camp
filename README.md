@@ -35,7 +35,7 @@
 
 ## 遇到的坑
 
-### audio标签无法自动播放
+### 一、audio标签无法自动播放
 
 > Error: Uncaught (in promise) : DOMException: play() failed because the user didn't interact with the document first in console点击
 
@@ -43,7 +43,7 @@
 
 封装一个函数`trackInit()`展示首页的歌曲的信息，然后执行`window.onload = trackInit();`
 
-### audio.duration返回NAN
+### 二、audio.duration返回NAN
 
 在`trackInit()`函数中`audio.duration`返回NAN，原因是此时`audio`标签尚未加载完毕。
 
@@ -64,7 +64,7 @@ currentTrack.onloadeddata = function(){
 
 在`track-art`的盒子外面再套一个盒子`track-art-wrapper`，把阴影加到外侧盒子上，然后旋转的动画加到`track-art`上。
 
-### 部分歌词点击后currentTime失效
+### 三、部分歌词点击后currentTime失效
 
 **原因：**
 
@@ -78,7 +78,7 @@ currentTrack.onloadeddata = function(){
 currentTrack.currentTime = Math.ceil(lyric[i][0]*100)/100;
 ```
 
-### 点击歌词修改currentTime中的异步任务
+### 四、点击歌词修改currentTime中的异步任务
 
 > Uncaught TypeError: Cannot read properties of null (reading 'classList')
 >
