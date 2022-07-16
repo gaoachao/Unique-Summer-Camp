@@ -8,11 +8,11 @@
 
 ### week 1
 
-|                         **学习任务**                         | 完成时间  |         备注          |
-| :----------------------------------------------------------: | :-------: | :-------------------: |
-|                             起步                             | 2022.7.10 | 科学上网、chrome、Git |
-| [数据结构](https://github.com/gaoachao/Unique-Summer-Camp/tree/1-Data-Structure) |           |                       |
-| [音乐播放器](https://github.com/gaoachao/Unique-Summer-Camp/tree/2-Music-Player) | 2022.7.13 | 基本需求和选做均完成  |
+|                         **学习任务**                         | 完成时间  |                          备注                          |
+| :----------------------------------------------------------: | :-------: | :----------------------------------------------------: |
+|                             起步                             | 2022.7.10 |                 科学上网、chrome、Git                  |
+| [数据结构](https://github.com/gaoachao/Unique-Summer-Camp/tree/1-Data-Structure) | 2022.7.16 | 基本要求已完成，同时发现自己的数据结构与算法任重道远。 |
+| [音乐播放器](https://github.com/gaoachao/Unique-Summer-Camp/tree/2-Music-Player) | 2022.7.13 |                  基本需求和选做均完成                  |
 
 #### Music Player
 
