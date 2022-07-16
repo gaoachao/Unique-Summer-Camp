@@ -15,7 +15,9 @@ Explanation: 将数组化为二进制表示为：[000,001,011,010,110,111,101,10
 
 
 
-```
+
+
+```javascript
 function solution(n) {
   let row = Math.pow(2, n - 1),
     	column = 2;
