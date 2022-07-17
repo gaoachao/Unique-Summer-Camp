@@ -394,9 +394,11 @@ let mobileListener = function () {
   }
 };
 mobileListener();
-window.addEventListener("resize", mobileListener);
+
+
 
 //监听器
+window.addEventListener("resize", mobileListener);
 playPauseBtn.addEventListener("click", playpauseTrack);
 nextBtn.addEventListener("click", nextTrack);
 prevBtn.addEventListener("click", prevTrack);
