@@ -28,6 +28,6 @@
 
 |                         **学习任务**                         | 完成时间 | 备注 |
 | :----------------------------------------------------------: | :------: | :--: |
-| [守望先锋复刻](https://github.com/gaoachao/Unique-Summer-Camp/tree/3-Over-Wacth) |          |      |
+| [守望先锋复刻](https://github.com/gaoachao/Unique-Summer-Camp/tree/3-Over-Watch) |          |      |
 
 #### 
