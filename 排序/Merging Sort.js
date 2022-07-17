@@ -24,3 +24,6 @@ function mergeSort(arr) {
 	//将数组切成左右两个
   return merge(mergeSort(left), mergeSort(right));
 }
+
+arr=[50,20,40,60,30,100,80,90];
+console.log(mergeSort(arr));

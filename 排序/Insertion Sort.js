@@ -12,3 +12,5 @@ function insertionSort(arr) {
 	}
 	return arr;
 } 
+arr=[50,20,40,60,30,100,80,90];
+console.log(insertionSort(arr));

@@ -9,6 +9,7 @@ function heapSort(arr) {
     arr[0] = temp;
     adjustHeap(arr, 0, j);
   }
+	return arr;
 }
 //将一个数组(二叉树),调整成一个大顶堆
 function adjustHeap(arr, i, length) {
@@ -32,3 +33,5 @@ function adjustHeap(arr, i, length) {
     arr[i] = temp; 
   }
 }
+arr=[50,20,40,60,30,100,80,90];
+console.log(heapSort(arr));
