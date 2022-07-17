@@ -58,13 +58,13 @@ currentTrack.onloadeddata = function(){
 }
 ```
 
-### 歌曲封面图在旋转时阴影也跟着旋转
+### 三、歌曲封面图在旋转时阴影也跟着旋转
 
 **解决方案：**
 
 在`track-art`的盒子外面再套一个盒子`track-art-wrapper`，把阴影加到外侧盒子上，然后旋转的动画加到`track-art`上。
 
-### 三、部分歌词点击后currentTime失效
+### 四、部分歌词点击后currentTime失效
 
 **原因：**
 
@@ -78,7 +78,7 @@ currentTrack.onloadeddata = function(){
 currentTrack.currentTime = Math.ceil(lyric[i][0]*100)/100;
 ```
 
-### 四、点击歌词修改currentTime中的异步任务
+### 五、点击歌词修改currentTime中的异步任务
 
 > Uncaught TypeError: Cannot read properties of null (reading 'classList')
 >
